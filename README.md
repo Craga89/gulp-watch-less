@@ -1,6 +1,6 @@
 # [gulp](http://gulpjs.com)-watch-less [![Build Status](https://travis-ci.org/Craga89/gulp-watch-less.svg?branch=master)](https://travis-ci.org/Craga89/gulp-watch-less)
 
-> Lorem ipsum
+> Watch .less files and their @imports using the [gulp-watch](https://github.com/floatdrop/gulp-watch) endless stream task
 
 ## Install
 
@@ -13,11 +13,13 @@ $ npm install --save-dev gulp-watch-less
 
 ```js
 var gulp = require('gulp');
-var gulpWatchLess = require('gulp-watch-less');
+var watchLess = require('gulp-watch-less');
+var less = require('gulp-less');
 
 gulp.task('default', function () {
-	return gulp.src('src/file.ext')
-		.pipe(gulpWatchLess())
+	return gulp.src('less/file.less')
+		.pipe(watchLess('less/file.less'))
+		.pipe(less())
 		.pipe(gulp.dest('dist'));
 });
 ```
@@ -29,14 +31,17 @@ gulp.task('default', function () {
 
 #### options
 
-##### foo
+All valid options to [gulp-watch](https://github.com/floatdrop/gulp-watch) are valid here, and are simply
+passed through
 
-Type: `boolean`  
-Default: `false`
+##### less
 
-Lorem ipsum.
+Type: `object`  
+Default: `{}`
+
+*Optional* options passed through to the [less](https://github.com/less/less.js).Parser instance.
 
 
 ## License
 
-MIT © [Craga89](https://github.com/Craga89)
+MIT &copy; [Craig Michael Thompson](https://github.com/Craga89)

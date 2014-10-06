@@ -1,13 +1,13 @@
 {
-  "name": "gulp-<%= pluginName %>",
-  "version": "0.0.0",
-  "description": "",
+  "name": "gulp-watch-less",
+  "version": "0.1.0",
+  "description": "Watch .less files and their @imports using the gulp-watch endless stream",
   "license": "MIT",
-  "repository": "<%= githubUsername %>/gulp-<%= pluginName %>",
+  "repository": "Craga89/gulp-watch-less",
   "author": {
-    "name": "<%= name %>",
-    "email": "<%= email %>",
-    "url": "https://github.com/<%= githubUsername %>"
+    "name": "Craig Michael Thompson",
+    "email": "craig@craigsworks.com",
+    "url": "https://github.com/Craga89"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -23,6 +23,9 @@
   ],
   "dependencies": {
     "gulp-util": "^3.0.0",
+    "gulp-watch": "^1.0.7",
+    "less": "^1.7.5",
+    "lodash.defaults": "^2.4.1",
     "through2": "^0.6.1"
   },
   "devDependencies": {
