@@ -29,7 +29,7 @@ gulp.task('default', function () {
 
 ## API
 
-### GulpWatchLess(glob, options, callback)
+### GulpWatchLess(glob, [options, callback])
 
 Creates watcher that will spy on files that were matched by glob which can be a [`node-glob`](https://github.com/isaacs/node-glob) string or array of strings.
 
@@ -38,8 +38,9 @@ In this case, the `file.event` will be equal to `import:changed` for easy distin
 
 Returns pass-through stream, that will emit vinyl files (with additional `event` property) that corresponds to event on file-system.
 
-#### glob
-Any valid glob string, or a
+#### Callback `function(events, done)`
+
+See documentation on [gulp-watch](https://github.com/floatdrop/gulp-watch) task
 
 #### options
 
@@ -51,10 +52,6 @@ Type: `object`
 Default: `{}`
 
 *Optional* options passed through to the [less](https://github.com/less/less.js).Parser instance.
-
-#### Callback `function(events, done)`
-
-See documentation on [gulp-watch](https://github.com/floatdrop/gulp-watch) task
 
 ## License
 
