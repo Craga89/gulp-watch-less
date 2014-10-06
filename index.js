@@ -20,6 +20,7 @@ function closeStream(stream) {
 	return stream;
 }
 
+// Generates list of @import paths for a given Vinyl file
 function generateImportList(file, options, cb) {
 	var imports = [];
 
@@ -49,6 +50,7 @@ function generateImportList(file, options, cb) {
 		cb(err, imports);
 	});
 };
+
 
 function watchImports(parentStream, options) {
 	var imports, 
@@ -164,18 +166,8 @@ module.exports = function (glob, options, done) {
 		options
 	);
 
-	// Glob immediately to ensure imports are parsed before
-	// any changes occur
+	// Glob immediately to ensure imports are parsed before any changes occur
 	gulp.src(glob).pipe(watchStream)
-
-	// Close off all `importStreams` when `watchStream` closes
-	watchStream.on('end', function() {
-		Object.keys(_importStreams).forEach(function(stream, path) {
-			stream.end();
-			stream.unpipe();
-			stream.close();
-		});
-	})
 
 	return watchStream;
 };
