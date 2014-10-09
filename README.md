@@ -67,11 +67,11 @@ MIT &copy; [Craig Michael Thompson][profile-url]
 [npm-url]: https://npmjs.org/package/gulp-watch-less
 [npm-image]: http://img.shields.io/npm/v/gulp-watch-less.svg?style=flat
 
-[travis-url]: https://travis-ci.org/floatdrop/gulp-watch-less
-[travis-image]: http://img.shields.io/travis/floatdrop/gulp-watch-less.svg?style=flat
+[travis-url]: https://travis-ci.org/Craga89/gulp-watch-less
+[travis-image]: http://img.shields.io/travis/Craga89/gulp-watch-less.svg?style=flat
 
-[coveralls-url]: https://coveralls.io/r/floatdrop/gulp-watch-less
-[coveralls-image]: http://img.shields.io/coveralls/floatdrop/gulp-watch-less.svg?style=flat
+[coveralls-url]: https://coveralls.io/r/Craga89/gulp-watch-less
+[coveralls-image]: http://img.shields.io/coveralls/Craga89/gulp-watch-less.svg?style=flat
 
-[depstat-url]: https://david-dm.org/floatdrop/gulp-watch-less
-[depstat-image]: http://img.shields.io/david/floatdrop/gulp-watch-less.svg?style=flat
+[depstat-url]: https://david-dm.org/Craga89/gulp-watch-less
+[depstat-image]: http://img.shields.io/david/Craga89/gulp-watch-less.svg?style=flat
