@@ -9,17 +9,6 @@ var gulp = require('gulp'),
 	through = require('through2'),
 	less = require('less');
 
-// Helper that closes and returns a given stream
-function closeStream(stream) {
-	if(stream) {
-		stream.end();
-		stream.unpipe();
-		stream.close && stream.close();
-	}
-
-	return stream;
-}
-
 // Generates list of @import paths for a given Vinyl file
 function getLessFileImports(file, options, cb) {
 	var imports = [];
@@ -51,57 +40,50 @@ function getLessFileImports(file, options, cb) {
 	});
 };
 
-var _imports = {}; // Tracks import lists i.e.  `{file.path}: [imports]`
-var _streams = {}; // Tracks watch streams i.e. `{file.path}: stream`
+// Tracks watch streams e.g. `{filepath}: stream`
+var _streams = Object.create(null); 
 
 // Name of the event fired when @imports cause file to change
 // (Overwrites the current file.event set by gulp-watch/gaze)
-var changeEvent = 'changed:via:import'; 
-
+var changeEvent = 'changed:by:import'; 
 
 // Import generator
 function watchLessImports(file, options, cb, done) {
-	var filePath = file.path;
-
-	function log() {
-		var args = Array.prototype.slice.apply(arguments);
-		gutil.log.apply(gutil, [gutil.colors.cyan(options.name)].concat(args));
-	}
+	var filePath = file.path,
+		watchStream = _streams[filePath];
 
 	// Generate an @import list via LESS...
 	getLessFileImports(file, options.less, function(err, imports) {
+		var oldImports;
+
 		// Emit the error if one was returned
 		if (err) { cb(new gutil.PluginError(PLUGIN_NAME, err)); }
 
-		// Check to ensure the imports have actually changed before we re-watch!
-		if(_imports[filePath] && _imports[filePath].join() === imports.join()) {
-			options.verbose && log('saw no @import changes detected for ' + gutil.colors.magenta(file.relative));
-			return;
+		// If a previous watch stream is active...
+		if(watchStream) {
+			oldImports = watchStream._imports;
+
+			// Check to ensure the @import arrays are identical.
+			if(oldImports.length && oldImports.join() === imports.join()) {
+				done(); return; // Don't do anything further!
+			}
+
+			// Clean up previous watch stream
+			watchStream.end();
+			watchStream.unpipe();
+			watchStream.close();
+			delete _streams[filePath];
 		}
 
-		// Overwrite previous imports with new list
-		_imports[filePath] = imports;
-
-		// If verbose logging is on, and if this is a subsequent gaze event (not initial setup)
-		// output information about @import changes and @imports l
-		if(options.verbose && file.event) {
-			log(
-				gutil.colors.cyan('detected @import additions/deletions, re-parsing...'),
-				'\n\t'+gutil.colors.magenta('Watching'), 
-				imports.join('\n\t\t'+gutil.colors.magenta('Watching '))
-			);
-		}
-
-		// Get and close the previous import stream
-		var importStream = closeStream(_streams[filePath]);
-
-		// Create a new watch stream that will watch the @import file list
-		// but only if we actually have some @imports to track
+		// If we found some imports...
 		if(imports.length) {
-			_streams[filePath] = watch(imports, options, cb);
+			// Generate new watch stream 
+			watchStream = _streams[filePath] = watch(imports, options, cb);
+
+			// Expose @import list on the stream
+			watchStream._imports = imports;
 		}
 
-		// Fire done callback
 		done();
 	});
 }
@@ -130,7 +112,7 @@ module.exports = function (glob, options, callback) {
 		// and not when our own internal changeEvent triggers it
 		if(file.event !== changeEvent) {
 			watchLessImports(file, options, function(importFile) {
-				watchStream.trigger(changeEvent, filePath);
+				watchStream._gaze.emit('all', changeEvent, filePath);
 			},
 			cb);
 		}
@@ -150,7 +132,5 @@ module.exports = function (glob, options, callback) {
 	// Pipe the watch stream into the imports watcher so whenever any of the
 	// files change, we re-generate our @import watcher so removals/additions 
 	// are detected
-	watchStream.pipe(through.obj(watchImportStream));
-
-	return watchStream;
+	return watchStream.pipe(through.obj(watchImportStream));
 };

@@ -19,11 +19,16 @@
     "index.js"
   ],
   "keywords": [
-    "gulpplugin"
+    "gulpplugin",
+    "gulp",
+    "less",
+    "watch",
+    "gulp-watch",
+    "gulp-less"
   ],
   "dependencies": {
     "gulp-util": "^3.0.0",
-    "gulp-watch": "^1.0.7",
+    "gulp-watch": "^1.1",
     "less": "^1.7.5",
     "lodash.defaults": "^2.4.1",
     "through2": "^0.6.1"
