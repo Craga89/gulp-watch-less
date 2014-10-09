@@ -34,7 +34,7 @@ gulp.task('default', function () {
 Creates watcher that will spy on files that were matched by glob which can be a [`node-glob`](https://github.com/isaacs/node-glob) string or array of strings.
 
 **This will also watch all traced `@import` dependencies of the matched files, and re-emit a change event when any of them change**.
-In this case, the `file.event` will be equal to `import:changed` for easy distinction.
+In this case, the `file.event` will be equal to `changed:by:import` for easy distinction.
 
 Returns pass-through stream, that will emit vinyl files (with additional `event` property) that corresponds to event on file-system.
 
