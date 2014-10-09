@@ -1,5 +1,5 @@
 # [gulp](http://gulpjs.com)-watch-less [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
-> Watch .less files and their @imports using the [gulp-watch][watch] endless stream task
+> Watch .less files and their @imports using the [gulp-watch][watch-url] endless stream task
 
 ## Install
 
@@ -39,11 +39,11 @@ Returns pass-through stream, that will emit vinyl files (with additional `event`
 
 #### Callback `function(events, done)`
 
-See documentation on [gulp-watch][watch] task
+See documentation on [gulp-watch][watch-url] task
 
 #### options
 
-See documentation on [gulp-watch][watch] task
+See documentation on [gulp-watch][watch-url] task
 
 ##### options.less
 
