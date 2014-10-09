@@ -12,9 +12,6 @@
   "engines": {
     "node": ">=0.10.0"
   },
-  "scripts": {
-    "test": "mocha"
-  },
   "files": [
     "index.js"
   ],
@@ -32,8 +29,5 @@
     "less": "^1.7.5",
     "lodash.defaults": "^2.4.1",
     "through2": "^0.6.1"
-  },
-  "devDependencies": {
-    "mocha": "*"
   }
 }
