@@ -23,7 +23,7 @@ gulp.task('default', function () {
 });
 ```
 
-> __Protip:__ until gulpjs 4.0 is released, you can use [gulp-plumber][plumber] to prevent stops on errors.
+> __Protip:__ until gulpjs 4.0 is released, you can use [gulp-plumber][plumber-url] to prevent stops on errors.
 
 
 ## API
