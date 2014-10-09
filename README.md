@@ -64,14 +64,14 @@ MIT &copy; [Craig Michael Thompson][profile-url]
 [watch-url]: https://github.com/floatdrop/gulp-watch
 [plumber-url]: https://github.com/floatdrop/gulp-plumber
 
-[npm-url]: https://npmjs.org/package/gulp-watch
-[npm-image]: http://img.shields.io/npm/v/gulp-watch.svg?style=flat
+[npm-url]: https://npmjs.org/package/gulp-watch-less
+[npm-image]: http://img.shields.io/npm/v/gulp-watch-less.svg?style=flat
 
-[travis-url]: https://travis-ci.org/floatdrop/gulp-watch
-[travis-image]: http://img.shields.io/travis/floatdrop/gulp-watch.svg?style=flat
+[travis-url]: https://travis-ci.org/floatdrop/gulp-watch-less
+[travis-image]: http://img.shields.io/travis/floatdrop/gulp-watch-less.svg?style=flat
 
-[coveralls-url]: https://coveralls.io/r/floatdrop/gulp-watch
-[coveralls-image]: http://img.shields.io/coveralls/floatdrop/gulp-watch.svg?style=flat
+[coveralls-url]: https://coveralls.io/r/floatdrop/gulp-watch-less
+[coveralls-image]: http://img.shields.io/coveralls/floatdrop/gulp-watch-less.svg?style=flat
 
-[depstat-url]: https://david-dm.org/floatdrop/gulp-watch
-[depstat-image]: http://img.shields.io/david/floatdrop/gulp-watch.svg?style=flat
+[depstat-url]: https://david-dm.org/floatdrop/gulp-watch-less
+[depstat-image]: http://img.shields.io/david/floatdrop/gulp-watch-less.svg?style=flat
