@@ -1,6 +1,6 @@
 {
   "name": "gulp-watch-less",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Watch .less files and their @imports using the gulp-watch endless stream",
   "license": "MIT",
   "repository": "Craga89/gulp-watch-less",
