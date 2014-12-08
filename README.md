@@ -26,6 +26,17 @@ gulp.task('default', function () {
 > __Protip:__ until gulpjs 4.0 is released, you can use [gulp-plumber][plumber-url] to prevent stops on errors.
 
 
+### Bower
+
+If you're installing libraries -- like Boostrap -- with bower, you'll want to
+give less a path. To do so, change the `.pipe(less())` line above to read.
+
+```js
+		.pipe(less({paths: ['./public/bower_components']}))
+```
+
+Now inside of your less file you can do `@import 'bootstrap/less/bootstrap.less';`
+
 ## API
 
 ### GulpWatchLess(glob, [options, callback])
@@ -50,7 +61,7 @@ See documentation on [gulp-watch][watch-url] task
 Type: `object`  
 Default: `{}`
 
-*Optional* options passed through to the [less]().Parser instance.
+*Optional* options passed through to the [less][less-url] parser instance.
 
 ## License
 
