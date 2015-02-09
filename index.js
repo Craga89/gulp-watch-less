@@ -19,7 +19,7 @@ function getLessFileImports(file, options, cb) {
 	}
 
 	// Parse the filepath, using file path as `filename` option
-	less.parse(contents, mergeDefaults({
+	less.parse(file.contents.toString('utf8'), mergeDefaults({
 		filename: file.path
 	}, 
 	options || {}), 
@@ -32,7 +32,7 @@ function getLessFileImports(file, options, cb) {
 		} 
 
 		// Generate imports list from the files hash (sorted)
-		var imports = Object.keys(parser.imports.files).sort();
+		var imports = Object.keys(imports.files).sort();
 
 		cb(err, imports);
 	});
