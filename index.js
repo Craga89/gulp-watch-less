@@ -18,14 +18,12 @@ function getLessFileImports(file, options, cb) {
 		cb = options; options = null;
 	}
 
-	// Create new parser instance, using file path as `filename` option
-	var parser = new less.Parser(mergeDefaults({
+	// Parse the filepath, using file path as `filename` option
+	less.parse(contents, mergeDefaults({
 		filename: file.path
 	}, 
-	options || {}));
-
-	// Parse the source into AST tree via LESS and return `imports` array
-	parser.parse(file.contents.toString('utf8'), function (err, tree) {
+	options || {}), 
+	function(err, root, imports, options) {
 		// Add a better error message / properties
 		if (err) { 
 			err.lineNumber = err.line;
