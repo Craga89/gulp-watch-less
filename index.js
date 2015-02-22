@@ -126,5 +126,9 @@ module.exports = function (glob, options, callback) {
 	// Pipe the watch stream into the imports watcher so whenever any of the
 	// files change, we re-generate our @import watcher so removals/additions
 	// are detected
-	return watchStream.pipe(through.obj(watchImportStream));
+	watchStream.pipe(through.obj(watchImportStream));
+
+	// In order for the pipe to receive updates that the main less file changed
+	// we must pipe the stream to itself.
+	return watchStream.pipe(watchStream);
 };
