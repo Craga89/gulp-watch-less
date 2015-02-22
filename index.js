@@ -2,16 +2,13 @@
 
 var PLUGIN_NAME = 'gulp-watch-less';
 
-var gulp = require('gulp'),
-	gutil = require('gulp-util'),
+var gutil = require('gulp-util'),
 	watch = require('gulp-watch'),
 	mergeDefaults = require('lodash.defaults'),
 	through = require('through2'),
 	less = require('less');
 
 function getLessFileImports(vinylFile, options, cb) {
-	var imports = [];
-
 	// Support (file, cb) signature.
 	if(typeof options === 'function') {
 		cb = options;
@@ -35,12 +32,10 @@ function getLessFileImports(vinylFile, options, cb) {
 			}
 
 			// Generate imports list from the files hash (sorted).
-			var imports = Object.keys(imports.files).sort();
-
-			cb(err, imports);
+			cb(err, Object.keys(imports.files).sort());
 		}
 	);
-};
+}
 
 // Tracks watch streams e.g. `{filepath}: stream`.
 var _streams = Object.create(null);
@@ -95,7 +90,7 @@ module.exports = function (glob, options, callback) {
 		less: {}
 	});
 
-	var watchStream = watch(glob, options, callback)
+	var watchStream = watch(glob, options, callback);
 
 	function watchImportStream(file, enc, cb) {
 		var filePath = file.path;
@@ -113,7 +108,9 @@ module.exports = function (glob, options, callback) {
 	}
 
 	// Close all import watch streams when the watchStream ends.
-	watchStream.on('end', function() { Object.keys(_streams).forEach(closeStream); });
+	// TODO `closeStream` is undefined. This should be defined to prevent runtime
+	// errors and so that streams are properly closed.
+	// watchStream.on('end', function() { Object.keys(_streams).forEach(closeStream); });
 
 	// Pipe the watch stream into the imports watcher so whenever any of the files
 	// change, we re-generate our @import watcher so removals/additions are
