@@ -21,15 +21,15 @@ function getLessFileImports(file, options, cb) {
 	// Parse the filepath, using file path as `filename` option
 	less.parse(file.contents.toString('utf8'), mergeDefaults({
 		filename: file.path
-	}, 
-	options || {}), 
+	},
+	options || {}),
 	function(err, root, imports, options) {
 		// Add a better error message / properties
-		if (err) { 
+		if (err) {
 			err.lineNumber = err.line;
 			err.fileName = err.filename;
 			err.message = err.message + ' in file ' + err.fileName + ' line no. ' + err.lineNumber;
-		} 
+		}
 
 		// Generate imports list from the files hash (sorted)
 		var imports = Object.keys(imports.files).sort();
@@ -39,11 +39,11 @@ function getLessFileImports(file, options, cb) {
 };
 
 // Tracks watch streams e.g. `{filepath}: stream`
-var _streams = Object.create(null); 
+var _streams = Object.create(null);
 
 // Name of the event fired when @imports cause file to change
 // (Overwrites the current file.event set by gulp-watch/gaze)
-var changeEvent = 'changed:by:import'; 
+var changeEvent = 'changed:by:import';
 
 // Import generator
 function watchLessImports(file, options, cb, done) {
@@ -75,7 +75,7 @@ function watchLessImports(file, options, cb, done) {
 
 		// If we found some imports...
 		if(imports.length) {
-			// Generate new watch stream 
+			// Generate new watch stream
 			watchStream = _streams[filePath] = watch(imports, options, cb);
 
 			// Expose @import list on the stream
@@ -104,7 +104,7 @@ module.exports = function (glob, options, callback) {
 		var filePath = file.path;
 
 		// Passthrough the file
-		this.push(file); 
+		this.push(file);
 
 		// Make sure we only execute the logic on external events
 		// and not when our own internal changeEvent triggers it
@@ -123,12 +123,8 @@ module.exports = function (glob, options, callback) {
 	// Close all import watch streams when the watchStream ends
 	watchStream.on('end', function() { Object.keys(_streams).forEach(closeStream); });
 
-	// Immediately apply the globs and watch all imports, since otherwise we'd
-	// have to edit the files once before any @import watching would activate
-	gulp.src(glob).pipe(through.obj(watchImportStream));
-
 	// Pipe the watch stream into the imports watcher so whenever any of the
-	// files change, we re-generate our @import watcher so removals/additions 
+	// files change, we re-generate our @import watcher so removals/additions
 	// are detected
 	return watchStream.pipe(through.obj(watchImportStream));
 };
