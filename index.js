@@ -47,8 +47,7 @@ var changeEvent = 'changed:by:import';
 
 // Import generator
 function watchLessImports(file, options, cb, done) {
-	var filePath = file.path,
-		watchStream = _streams[filePath];
+	var filePath = file.path;
 
 	// Generate an @import list via LESS...
 	getLessFileImports(file, options.less, function(err, imports) {
@@ -58,6 +57,7 @@ function watchLessImports(file, options, cb, done) {
 		if (err) { cb(new gutil.PluginError(PLUGIN_NAME, err)); }
 
 		// If a previous watch stream is active...
+		var watchStream = _streams[filePath];
 		if(watchStream) {
 			oldImports = watchStream._imports;
 
@@ -130,5 +130,6 @@ module.exports = function (glob, options, callback) {
 
 	// In order for the pipe to receive updates that the main less file changed
 	// we must pipe the stream to itself.
-	return watchStream.pipe(watchStream);
+	watchStream.pipe(watchStream);
+	return watchStream;
 };
